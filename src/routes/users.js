@@ -2,11 +2,17 @@ import { Router } from "express";
 import { users } from "../utils/usersData.js";
 import { findIndexByUserId } from "../middlewares/users.js";
 import { User } from "../models/User.js";
+import { hashPassword } from "../hashing.js";
 
 const router = Router();
 
 router.post("/api/users/", async (req, res) => {
   const { body } = req;
+  console.log(body.password); // test123
+
+  body.password = hashPassword(body.password);
+  console.log(body.password); // '$2b$10$8MgfDJMK6zCw5Tve3HIUT.syH26TVda88AY1BEedRsVHIxA.JxXVi
+
   let user = new User(body);
   try {
     const savedUser = await user.save();

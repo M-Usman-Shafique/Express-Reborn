@@ -1,6 +1,7 @@
 import passport from "passport";
 import { Strategy } from "passport-local";
 import { User } from "../models/User.js";
+import { comparePassword } from "../hashing.js";
 
 passport.serializeUser((user, done) => {
   console.log("Serialized user:", user.id);
@@ -26,7 +27,7 @@ export default passport.use(
     try {
       const findUser = await User.findOne({ username });
       if (!findUser) throw new Error("User not found");
-      if (findUser.password !== password)
+      if (!comparePassword(password, findUser.password))
         throw new Error("Invalid credentials");
       done(null, findUser); // null for error
     } catch (err) {
