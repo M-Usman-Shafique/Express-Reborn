@@ -1,16 +1,16 @@
 import passport from "passport";
 import { Strategy } from "passport-local";
-import { users } from "../utils/usersData.js";
+import { User } from "../models/User.js";
 
 passport.serializeUser((user, done) => {
   console.log("Serialized user:", user.id);
   done(null, user.id);
 });
 
-passport.deserializeUser((id, done) => {
+passport.deserializeUser(async (id, done) => {
   console.log("Deserialized user:", id);
   try {
-    const findUser = users.find((user) => user.id === id);
+    const findUser = await User.findById(id);
     if (!findUser) throw new Error("User not found");
     done(null, findUser);
   } catch (err) {
@@ -20,11 +20,11 @@ passport.deserializeUser((id, done) => {
 
 // user varification
 export default passport.use(
-  new Strategy((username, password, done) => {
+  new Strategy(async (username, password, done) => {
     console.log(username);
     console.log(password);
     try {
-      const findUser = users.find((user) => user.username === username);
+      const findUser = await User.findOne({ username });
       if (!findUser) throw new Error("User not found");
       if (findUser.password !== password)
         throw new Error("Invalid credentials");
@@ -34,7 +34,3 @@ export default passport.use(
     }
   })
 );
-
-// passport.use(
-//   new Strategy({ usernameField: "email" }, (username, password, done) => {})
-// );

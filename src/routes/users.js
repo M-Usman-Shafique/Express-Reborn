@@ -1,8 +1,20 @@
 import { Router } from "express";
 import { users } from "../utils/usersData.js";
 import { findIndexByUserId } from "../middlewares/users.js";
+import { User } from "../models/User.js";
 
 const router = Router();
+
+router.post("/api/users/", async (req, res) => {
+  const { body } = req;
+  let user = new User(body);
+  try {
+    const savedUser = await user.save();
+    return res.status(201).send({ msg: "User is created", user: savedUser });
+  } catch (error) {
+    return res.sendStatus(400);
+  }
+});
 
 router.get("/api/users/:id", (req, res) => {
   const userId = parseInt(req.params.id);
