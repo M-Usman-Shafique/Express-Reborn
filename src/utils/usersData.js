@@ -1,26 +1,26 @@
 export const users = [
   {
     id: 1,
-    name: "Usman Aslam",
-    age: 30,
+    username: "Usman",
     email: "usman@test.com",
+    password: "test123",
   },
   {
     id: 2,
-    name: "Noman Shafiq",
-    age: 25,
+    username: "Noman",
     email: "noman@test.com",
+    password: "123test",
   },
   {
     id: 3,
-    name: "Salman Asif",
-    age: 20,
+    username: "Salman",
     email: "salman@test.com",
+    password: "test345",
   },
   {
     id: 4,
-    name: "Luqman Ahmed",
-    age: 15,
+    username: "Luqman",
     email: "luqman@test.com",
+    password: "345test",
   },
 ];
