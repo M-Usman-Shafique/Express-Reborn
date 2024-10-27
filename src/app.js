@@ -4,6 +4,7 @@ import cookieParser from "cookie-parser";
 import session from "express-session";
 import passport from "passport";
 import mongoose from "mongoose";
+import "./strategies/local.js";
 
 const app = express();
 
@@ -33,7 +34,7 @@ app.use(routes);
 const port = process.env.PORT || 3000;
 
 app.get("/", (req, res) => {
-  console.log(req.session);
+  // console.log(req.session);
   // Session {
   //   cookie: {
   //     path: '/',
@@ -42,7 +43,7 @@ app.get("/", (req, res) => {
   //     httpOnly: true
   //   }
   // }
-  console.log(req.session.id); // yEq6aKHIz6gqHS4arghsANTHEkYLMxvb
+  // console.log(req.session.id); // yEq6aKHIz6gqHS4arghsANTHEkYLMxvb
   req.session.visited = true;
   // res.cookie("hello", "world", { maxAge: 6000 * 2, signed: true }); // cookie name & cookie value
   return res.status(201).send("Session is created");

@@ -4,12 +4,12 @@ import { User } from "../models/User.js";
 import { comparePassword } from "../hashing.js";
 
 passport.serializeUser((user, done) => {
-  console.log("Serialized user:", user.id);
+  // console.log("Serialized user:", user.id);
   done(null, user.id);
 });
 
 passport.deserializeUser(async (id, done) => {
-  console.log("Deserialized user:", id);
+  // console.log("Deserialized user:", id);
   try {
     const findUser = await User.findById(id);
     if (!findUser) throw new Error("User not found");
@@ -22,8 +22,8 @@ passport.deserializeUser(async (id, done) => {
 // user varification
 export default passport.use(
   new Strategy(async (username, password, done) => {
-    console.log(username);
-    console.log(password);
+    // console.log(username);
+    // console.log(password);
     try {
       const findUser = await User.findOne({ username });
       if (!findUser) throw new Error("User not found");
