@@ -1,26 +1,13 @@
 import { Router } from "express";
 import passport from "passport";
+import { isAuth, login, logout } from "../controllers/auth.js";
 
 const router = Router();
 
-router.post("/api/auth", passport.authenticate("local"), (req, res) => {
-  return res.sendStatus(200);
-});
+router.post("/", passport.authenticate("local"), login);
 
-router.get("/api/auth/status", (req, res) => {
-  // console.log(req.user);
+router.get("/status", isAuth);
 
-  console.log(req.session);
-
-  return req.user ? res.send(req.user) : res.sendStatus(401);
-});
-
-router.get("/api/auth/logout", (req, res) => {
-  if (!req.user) return res.sendStatus(401);
-  req.logOut((err) => {
-    if (err) return res.sendStatus(400);
-    return res.send(200);
-  });
-});
+router.get("/logout", logout);
 
 export default router;

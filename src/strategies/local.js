@@ -1,7 +1,7 @@
 import passport from "passport";
 import { Strategy } from "passport-local";
 import { User } from "../models/User.js";
-import { comparePassword } from "../hashing.js";
+import { comparePassword } from "../utils/hashing.js";
 
 passport.serializeUser((user, done) => {
   // console.log("Serialized user:", user.id);
